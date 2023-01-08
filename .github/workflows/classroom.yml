@@ -17,15 +17,9 @@ jobs:
         uses: Azure/setup-kubectl@v3
 
       - name: Configure kubectl
-        uses: nikita-volkov/yc-cli.github-action@v1.0.0
-        with:
-          key: ${{ secrets.SA_DEPLOYER_PRIVATE_KEY }}
-          args: managed-kubernetes cluster get-credentials cat4k8m1qionch3ujbq8 --external
-
-      - name: Set kubectl config
         run: |
-          export KUBECONFIG=/github/home/.kube/config
-          kubectl config view --raw
+          mkdir $HOME/.kube
+          cp ./k8s/config $HOME/.kube/config
 
 #      - name: Yandex Cloud CR "Login" Action for GitHub Actions
 #        uses: yc-actions/yc-cr-login@v1
