@@ -23,7 +23,9 @@ jobs:
           args: managed-kubernetes cluster get-credentials cat4k8m1qionch3ujbq8 --external
 
       - name: Set kubectl config
-        run: kubectl config view --raw > ~/.kube/config
+        run: |
+          kubectl config view --raw > kubeconfig.yaml
+          export KUBECONFIG=kubeconfig.yaml
 
 #      - name: Yandex Cloud CR "Login" Action for GitHub Actions
 #        uses: yc-actions/yc-cr-login@v1
