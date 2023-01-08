@@ -24,6 +24,7 @@ jobs:
 
       - name: Set kubectl config
         run: |
+          export KUBECONFIG=/github/home/.kube/config
           kubectl config view --raw
 
 #      - name: Yandex Cloud CR "Login" Action for GitHub Actions
