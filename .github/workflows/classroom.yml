@@ -21,20 +21,20 @@ jobs:
           mkdir $HOME/.kube
           cp k8s/config.yaml $HOME/.kube/config
 
-#      - name: Yandex Cloud CR "Login" Action for GitHub Actions
-#        uses: yc-actions/yc-cr-login@v1
-#        with:
-#          yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
-#
-#      - name: Build, tag, and push image to Yandex Cloud Container Registry
-#        env:
-#          REGISTRY: cr.yandex/crpdp3dvnfjjbr6q6ie5
-#        run: |
-#          for service in gateway library rating reservation
-#          do
-#          docker build -f docker/$service/Dockerfile . --tag $REGISTRY/rsoi-lab4-$service:latest
-#          docker push $REGISTRY/rsoi-lab4-$service:latest
-#          done
+      - name: Yandex Cloud CR "Login" Action for GitHub Actions
+        uses: yc-actions/yc-cr-login@v1
+        with:
+          yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
+
+      - name: Build, tag, and push image to Yandex Cloud Container Registry
+        env:
+          REGISTRY: cr.yandex/crpdp3dvnfjjbr6q6ie5
+        run: |
+          for service in gateway library rating reservation
+          do
+          docker build -f docker/$service/Dockerfile . --tag $REGISTRY/rsoi-lab4-$service:latest
+          docker push $REGISTRY/rsoi-lab4-$service:latest
+          done
 
       - name: Deploy to k8s
         run: |
