@@ -22,20 +22,23 @@ jobs:
           key: ${{ secrets.SA_DEPLOYER_PRIVATE_KEY }}
           args: managed-kubernetes cluster get-credentials cat4k8m1qionch3ujbq8 --external
 
-      - name: Yandex Cloud CR "Login" Action for GitHub Actions
-        uses: yc-actions/yc-cr-login@v1
-        with:
-          yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
+      - name: Set kubectl config
+        run: kubectl config view --raw > ~/.kube/config
 
-      - name: Build, tag, and push image to Yandex Cloud Container Registry
-        env:
-          REGISTRY: cr.yandex/crpdp3dvnfjjbr6q6ie5
-        run: |
-          for service in gateway library rating reservation
-          do
-          docker build -f docker/$service/Dockerfile . --tag $REGISTRY/rsoi-lab4-$service:latest
-          docker push $REGISTRY/rsoi-lab4-$service:latest
-          done
+#      - name: Yandex Cloud CR "Login" Action for GitHub Actions
+#        uses: yc-actions/yc-cr-login@v1
+#        with:
+#          yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
+#
+#      - name: Build, tag, and push image to Yandex Cloud Container Registry
+#        env:
+#          REGISTRY: cr.yandex/crpdp3dvnfjjbr6q6ie5
+#        run: |
+#          for service in gateway library rating reservation
+#          do
+#          docker build -f docker/$service/Dockerfile . --tag $REGISTRY/rsoi-lab4-$service:latest
+#          docker push $REGISTRY/rsoi-lab4-$service:latest
+#          done
 
       - name: Deploy to k8s
         run: |
