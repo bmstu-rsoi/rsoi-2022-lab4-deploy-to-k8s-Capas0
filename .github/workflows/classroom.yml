@@ -16,11 +16,11 @@ jobs:
       - name: Install Kubectl
         uses: Azure/setup-kubectl@v3
 
-      - name: Execute Yandex Cloud CLI command
+      - name: Configure kubectl
         uses: nikita-volkov/yc-cli.github-action@v1.0.0
         with:
           key: ${{ secrets.SA_DEPLOYER_PRIVATE_KEY }}
-          args: managed-kubernetes cluster get-credentials rsoi-lab4 --external
+          args: managed-kubernetes cluster get-credentials cat4k8m1qionch3ujbq8 --external
 
       - name: Yandex Cloud CR "Login" Action for GitHub Actions
         uses: yc-actions/yc-cr-login@v1
