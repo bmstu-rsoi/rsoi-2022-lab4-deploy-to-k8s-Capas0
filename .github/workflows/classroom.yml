@@ -19,7 +19,7 @@ jobs:
       - name: Configure kubectl
         run: |
           mkdir $HOME/.kube
-          cp ./k8s/config $HOME/.kube/config
+          cp k8s/config.yaml $HOME/.kube/config
 
 #      - name: Yandex Cloud CR "Login" Action for GitHub Actions
 #        uses: yc-actions/yc-cr-login@v1
